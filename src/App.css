@@ -1,14 +1,13 @@
   .App {
     text-align: center;
+    background-color: white;
+    
   }
+.h1{
+  font-size: 3rem;
+  text-align: center;
+}
 
-@media screen and (max-width: 400px){
-  .bar img{
-    width: 25px;
-    height: 25px;
-   
-  }
- }  
  .bar input{
  
     flex: 1;
@@ -29,4 +28,26 @@
   cursor: pointer;
   margin-top: 10px;
   position: relative;
+}
+.list div {
+  
+  margin-top: 0.25em;
+  border: solid black 2px;
+  font-size: 2.5rem;
+  padding: 0cm;
+
+}
+input.checkbox{
+  position: absolute;
+  width: 1.75rem;
+  height: 1.75rem;;
+  left: 3px;
+  margin: 1.1em; 
+  background-color: green ;
+
+  /*bottom: 32.3rem; */
+}
+label{
+      font: 1em 'Fira Sans', sans-serif;
+
 }
