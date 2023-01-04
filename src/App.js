@@ -1,11 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import { useEffect, useState,useRef } from 'react';
+import { useEffect, useState} from 'react';
 import addButton from './images/addButton.svg';
 import removeButton from'./images/removeButton.svg';
 import ToDoList from './ToDoList';
 
 const LOCAL_STORAGE_KEY= 'savedList';
+var tempFiltering =[];// Temp value to store todoList in while filtering to avoid messing up the order
 
 function App() {
   const [todoList, setTodoList] = useState([]);
@@ -31,7 +31,7 @@ function App() {
     else{
     setTodoList(prevtodo =>[...prevtodo,
       {
-      id: todoList.length,
+      id: Math.random(),
       name : todo,
       complete:false
     }
@@ -41,11 +41,11 @@ function App() {
   }
 
 
-
 function removeToDo(){
   // ideally add ticks next to all todos and then you select the ones you want to delete by ticking them
   const newTodos= todoList.filter(todo => !todo.complete) // returns array that only has the uncompleted ones
   setTodoList(newTodos)
+  localStorage.setItem(LOCAL_STORAGE_KEY,JSON.stringify(newTodos))
 }
 function toggleTodo(id) {
   const newTodos = [...todoList]
@@ -53,7 +53,22 @@ function toggleTodo(id) {
   todo.complete = !todo.complete
   setTodoList(newTodos)
 }
-
+function filterToDos(){
+  console.log('OG')
+  console.log(todoList)
+ tempFiltering= [...todoList];
+  const filtered = todoList.filter(todo => todo.complete)
+  console.log('Before')
+  console.log(tempFiltering)
+  setTodoList(filtered)
+  console.log('After')
+  console.log(tempFiltering)
+}
+function unfilter(){  
+  console.log('In unfiltered')
+  console.log(tempFiltering)
+  setTodoList(tempFiltering);
+}
 
 return(
   <div className='App'>
@@ -84,6 +99,12 @@ return(
         removeToDo()
       }}
       />
+      <button className='completed' 
+      onClick={filterToDos}>
+        Show Completed</button>
+        <button className='all' 
+      onClick={unfilter}>
+        Show All</button>
     </div>
     <div className='list'>
     <ToDoList todos={todoList} toggleTodo={toggleTodo} />
